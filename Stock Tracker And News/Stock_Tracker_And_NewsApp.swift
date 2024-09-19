@@ -13,8 +13,7 @@ struct Stock_Tracker_And_NewsApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            NewsView()
         }
     }
 }
