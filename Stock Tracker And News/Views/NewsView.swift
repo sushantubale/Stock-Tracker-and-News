@@ -11,8 +11,10 @@ struct NewsView: View {
     @ObservedObject private var newsViewModel = NewsViewModel()
     
     var body: some View {
+        NavigationView {
         ScrollView {
-        ForEach(newsViewModel.newsModels?.content ?? [], id: \.title) { newsModel in
+            ForEach(newsViewModel.newsModels?.content ?? [], id: \.title) { newsModel in
+                NavigationLink(destination: NewsDetailView(article: newsModel)) {
                 VStack {
                     AsyncImage(url: URL(string: newsModel.image ?? "NA")) { image in
                         image
@@ -40,7 +42,9 @@ struct NewsView: View {
                     }
                 }
             }
+            }
         }
+    }
         .padding()
     }
     
@@ -48,23 +52,23 @@ struct NewsView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         if let date = dateFormatter.date(from:
- dateString)
- {
+                                            dateString)
+        {
             dateFormatter.dateFormat = "MMMM d, yyyy"
             return dateFormatter.string(from: date)
         }
         return dateString
     }
-
-    // Helper function to extract plain text content from HTML
-    func extractContent(_ htmlString: String) -> String {
-        // You'll need to implement or use a library for HTML parsing here
-        // For simplicity, let's just remove HTML tags for now
-        return htmlString.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-    }
-
 }
 
 #Preview {
     NewsView()
+}
+
+
+// Helper function to extract plain text content from HTML
+func extractContent(_ htmlString: String) -> String {
+    // You'll need to implement or use a library for HTML parsing here
+    // For simplicity, let's just remove HTML tags for now
+    return htmlString.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
 }

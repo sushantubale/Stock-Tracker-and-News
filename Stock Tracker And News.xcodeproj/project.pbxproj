@@ -24,6 +24,7 @@
 		0A1565052C9A122B001854D4 /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1565042C9A122B001854D4 /* NewsService.swift */; };
 		0A1565072C9A12B2001854D4 /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1565062C9A12B2001854D4 /* NewsModel.swift */; };
 		0A1565092C9A1333001854D4 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1565082C9A1333001854D4 /* NewsViewModel.swift */; };
+		0A6CDAEA2C9BE5D1005B717E /* NewsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6CDAE92C9BE5CF005B717E /* NewsDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		0A1565042C9A122B001854D4 /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
 		0A1565062C9A12B2001854D4 /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
 		0A1565082C9A1333001854D4 /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
+		0A6CDAE92C9BE5CF005B717E /* NewsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 		0A1564FF2C9A0FA3001854D4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0A6CDAE92C9BE5CF005B717E /* NewsDetailView.swift */,
 				0A1564C92C99E5F3001854D4 /* ContentView.swift */,
 				0A1565002C9A0FAD001854D4 /* SearchBar.swift */,
 				0A1565022C9A1219001854D4 /* NewsView.swift */,
@@ -329,6 +332,7 @@
 				0A1565092C9A1333001854D4 /* NewsViewModel.swift in Sources */,
 				0A1564CA2C99E5F3001854D4 /* ContentView.swift in Sources */,
 				0A1565012C9A0FAD001854D4 /* SearchBar.swift in Sources */,
+				0A6CDAEA2C9BE5D1005B717E /* NewsDetailView.swift in Sources */,
 				0A1564FB2C99EB34001854D4 /* StockService.swift in Sources */,
 				0A1564C82C99E5F3001854D4 /* Stock_Tracker_And_NewsApp.swift in Sources */,
 			);
