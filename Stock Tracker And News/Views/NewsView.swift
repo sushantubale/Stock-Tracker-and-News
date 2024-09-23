@@ -12,39 +12,41 @@ struct NewsView: View {
     
     var body: some View {
         NavigationView {
-        ScrollView {
-            ForEach(newsViewModel.newsModels?.content ?? [], id: \.title) { newsModel in
-                NavigationLink(destination: NewsDetailView(article: newsModel)) {
-                VStack {
-                    AsyncImage(url: URL(string: newsModel.image ?? "NA")) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                    } placeholder: {
-                        ProgressView()
-                    }
-                    Text(newsModel.title ?? "NA")
-                        .font(.headline)
-                    
-                    Text(formatDate(newsModel.date ?? "NA"))
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                    
-                    Text(extractContent(newsModel.content ?? "NA"))
-                        .font(.body)
-                        .lineLimit(3)
-                    
-                    HStack {
-                        Spacer()
-                        Link("Read More", destination: URL(string: newsModel.link ?? "NA")!)
-                            .font(.subheadline)
-                            .foregroundColor(.blue)
+            ScrollView {
+                Section(header: Text("NEWS").bold().font(.largeTitle)) {
+                    ForEach(newsViewModel.newsModels?.content ?? [], id: \.title) { newsModel in
+                        NavigationLink(destination: NewsDetailView(article: newsModel)) {
+                            VStack {
+                                AsyncImage(url: URL(string: newsModel.image ?? "NA")) { image in
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                Text(newsModel.title ?? "NA")
+                                    .font(.headline)
+                                
+                                Text(formatDate(newsModel.date ?? "NA"))
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                                
+                                Text(extractContent(newsModel.content ?? "NA"))
+                                    .font(.body)
+                                    .lineLimit(3)
+                                
+                                HStack {
+                                    Spacer()
+                                    Link("Read More", destination: URL(string: newsModel.link ?? "NA")!)
+                                        .font(.subheadline)
+                                        .foregroundColor(.blue)
+                                }
+                            }
+                        }
                     }
                 }
             }
-            }
         }
-    }
         .padding()
     }
     

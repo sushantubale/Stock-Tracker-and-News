@@ -12,47 +12,57 @@ struct ContentView: View {
     @ObservedObject var stockViewModel = StockViewModel()
     @State private var searchText = ""
     @State private var searchCancellable: AnyCancellable?
-
+    
     var body: some View {
         GeometryReader(content: { geometry in
             NavigationView {
                 VStack {
-                    // Search bar
                     SearchBar(text: $searchText, placeholder: "Search for stocks")
                         .onChange(of: searchText) { newSearchText in
                             // Cancel any existing search requests
                             searchCancellable?.cancel()
-
+                            
                             // If the search text is empty, clear the results
                             if newSearchText.isEmpty {
-                                stockViewModel.stockModel = nil
+                                stockViewModel.singleStockModel = nil
+                                stockViewModel.isLoadingStockNameDone = true
                                 return
                             }
-
+                            
                             // Delay the API call for 2 seconds
                             searchCancellable = Timer.publish(every: 2, on: .main, in: .common)
                                 .autoconnect()
-                                .first() // Take only the first value emitted by the timer
+                                .first()
                                 .sink { _ in
+                                    stockViewModel.isLoadingStockNameDone = true
                                     stockViewModel.getStock(stockSymbol: newSearchText)
                                 }
                         }
-
-                    // Display search results
-                    if let stockModel = stockViewModel.stockModel {
-                        List(stockModel, id: \.name) { value in
-                            HStack {
-                                Text(value.name ?? "NA")
-                                Text(value.symbol ?? "NA")
+                    
+                    if stockViewModel.isLoadingStockNameDone {
+                        List(stockViewModel.stockModel ?? [], id: \.name) { stock in
+                            VStack(alignment: .leading) {
+                                Text("\(stock.name ?? "NA")")
+                                    .bold()
+                                Text("\(stock.symbol ?? "NA")")
+                                    .font(.footnote)
                             }
                         }
-                        .navigationTitle("Stock Tracker and News")
-                        .navigationBarTitleDisplayMode(.inline)
+                    } else if stockViewModel.isLoadingStockListDone {
+                        List(stockViewModel.singleStockModel ?? [], id: \.name) { stock in
+                            VStack(alignment: .leading) {
+                                Text("\(stock.name ?? "NA")")
+                                    .bold()
+                                Text("\(stock.symbol ?? "NA")")
+                                    .font(.footnote)
+                            }
+                        }
                     }
-                    Spacer()
                 }
                 .padding()
-                .frame(height: geometry.size.height/2)
+                .onAppear {
+                    stockViewModel.getStockList()
+                }
             }
         })
     }
