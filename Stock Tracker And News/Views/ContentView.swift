@@ -41,20 +41,23 @@ struct ContentView: View {
                     
                     if stockViewModel.isLoadingStockNameDone {
                         List(stockViewModel.stockModel ?? [], id: \.name) { stock in
-                            VStack(alignment: .leading) {
-                                Text("\(stock.name ?? "NA")")
-                                    .bold()
-                                Text("\(stock.symbol ?? "NA")")
-                                    .font(.footnote)
-                            }
+                            NavigationLink(destination: StockDetailsView(stock: stock)) {
+                                VStack(alignment: .leading) {
+                                    Text("\(stock.name ?? "NA")")
+                                        .bold()
+                                    Text("\(stock.symbol ?? "NA")")
+                                        .font(.footnote)
+                                } }
                         }
                     } else if stockViewModel.isLoadingStockListDone {
                         List(stockViewModel.singleStockModel ?? [], id: \.name) { stock in
-                            VStack(alignment: .leading) {
-                                Text("\(stock.name ?? "NA")")
-                                    .bold()
-                                Text("\(stock.symbol ?? "NA")")
-                                    .font(.footnote)
+                            NavigationLink(destination: StockDetailsView(stockSingle: stock)) {
+                                VStack(alignment: .leading) {
+                                    Text("\(stock.name ?? "NA")")
+                                        .bold()
+                                    Text("\(stock.symbol ?? "NA")")
+                                        .font(.footnote)
+                                }
                             }
                         }
                     }

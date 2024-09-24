@@ -11,12 +11,15 @@ import SwiftUI
 
 protocol StockWebService {
     func getStock(stockSymbol: String)
+    func getStockList()
+    func getStockDetails(stockSymbol: String)
 }
 
 class StockViewModel: ObservableObject, StockWebService {
     
     @Published var stockModel: [StockModel]?
     @Published var singleStockModel: [SingleStockModel]?
+    @Published var stockDetails: [StockDetailsModel]?
     @ObservedObject var stockService = StockService()
     @Published var isLoadingStockListDone = false
     @Published var isLoadingStockNameDone = false
@@ -30,12 +33,17 @@ class StockViewModel: ObservableObject, StockWebService {
             .assign(to: &$isLoadingStockListDone)
         stockService.$isLoadingStockNameDone
             .assign(to: &$isLoadingStockNameDone)
+        stockService.$stockDetails
+            .assign(to: &$stockDetails)
     }
 
     func getStock(stockSymbol: String) {
-        stockService.getStockData(stockName: stockSymbol)
+        stockService.getDataFor(.singleStock, [StockModel].self, stockSymbol)
     }
     func getStockList() {
-        stockService.getStockList()
+        stockService.getDataFor(.stockList, [SingleStockModel].self, nil)
+    }
+    func getStockDetails(stockSymbol: String) {
+        stockService.getDataFor(.stockDetails, [StockDetailsModel].self, stockSymbol)
     }
 }

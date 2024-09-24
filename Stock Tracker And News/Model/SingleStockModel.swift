@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - SingleStockModel
-struct SingleStockModel: Codable {
+struct SingleStockModel: Decodable {
     let symbol: String?
     let name: String?
     let price: Double?
